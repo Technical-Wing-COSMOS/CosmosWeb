@@ -1,33 +1,32 @@
-import React from "react";
-
-const galleryItems = [
-  {
-    title: "COSMOS Events",
-    category: "Events",
-  },
-  {
-    title: "Our Community",
-    category: "Community",
-  },
-  {
-    title: "Workshops",
-    category: "Workshops",
-  },
-  {
-    title: "Projects",
-    category: "Projects",
-  },
-  {
-    title: "Team",
-    category: "Team",
-  },
-  {
-    title: "Moments",
-    category: "Activities",
-  },
-];
+import React, { useEffect, useState } from "react";
+import { collection, onSnapshot } from "firebase/firestore";
+import { db } from "../firebase/config";
 
 function Gallery() {
+  const [images, setImages] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const unsubscribe = onSnapshot(
+      collection(db, "gallery"),
+      (snapshot) => {
+        const galleryData = snapshot.docs.map((document) => ({
+          id: document.id,
+          ...document.data(),
+        }));
+
+        setImages(galleryData);
+        setLoading(false);
+      },
+      (error) => {
+        console.error("Error loading gallery:", error);
+        setLoading(false);
+      }
+    );
+
+    return () => unsubscribe();
+  }, []);
+
   return (
     <div className="min-h-screen bg-black text-white">
 
@@ -44,73 +43,84 @@ function Gallery() {
           </h1>
 
           <p className="text-gray-400 text-lg md:text-xl max-w-2xl leading-relaxed">
-            A glimpse into the people, projects, events and moments
-            that make COSMOS what it is.
+            A collection of moments, events and experiences from the
+            COSMOS community.
           </p>
 
         </div>
       </section>
 
-
-      {/* Gallery Grid */}
+      {/* Gallery */}
       <section className="px-6 pb-24">
         <div className="max-w-6xl mx-auto">
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {loading ? (
+            <div className="text-center py-20">
+              <p className="text-gray-500">
+                Loading gallery...
+              </p>
+            </div>
+          ) : images.length === 0 ? (
+            <div className="text-center py-20">
+              <p className="text-gray-500">
+                No gallery images have been added yet.
+              </p>
+            </div>
+          ) : (
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
-            {galleryItems.map((item, index) => (
-              <div
-                key={item.title}
-                className={`group relative overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900 ${
-                  index === 0 || index === 3
-                    ? "lg:row-span-2 min-h-[400px]"
-                    : "min-h-[240px]"
-                } hover:border-orange-500 transition duration-300`}
-              >
+              {images.map((item) => (
+                <div
+                  key={item.id}
+                  className="group rounded-2xl bg-zinc-900 border border-zinc-800 overflow-hidden hover:border-orange-500 transition duration-300"
+                >
 
-                {/* Image Placeholder */}
-                <div className="absolute inset-0 bg-gradient-to-br from-zinc-800 via-zinc-900 to-black flex items-center justify-center">
-                  <span className="text-4xl font-bold text-zinc-700 group-hover:text-orange-500 transition duration-300">
-                    {index + 1}
-                  </span>
+                  <div className="h-72 bg-zinc-800 overflow-hidden">
+
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                    />
+
+                  </div>
+
+                  <div className="p-6">
+
+                    <p className="text-orange-500 text-sm font-medium mb-2">
+                      {item.category || "COSMOS"}
+                    </p>
+
+                    <h2 className="text-xl font-semibold">
+                      {item.title}
+                    </h2>
+
+                  </div>
+
                 </div>
+              ))}
 
-                {/* Overlay */}
-                <div className="absolute inset-x-0 bottom-0 p-6 bg-gradient-to-t from-black via-black/80 to-transparent">
-
-                  <p className="text-orange-500 text-sm uppercase tracking-widest mb-2">
-                    {item.category}
-                  </p>
-
-                  <h2 className="text-2xl font-semibold">
-                    {item.title}
-                  </h2>
-
-                </div>
-
-              </div>
-            ))}
-
-          </div>
+            </div>
+          )}
 
         </div>
       </section>
-
 
       {/* CTA */}
       <section className="px-6 py-24 bg-zinc-950 border-t border-zinc-900">
         <div className="max-w-4xl mx-auto text-center">
 
           <p className="text-orange-500 uppercase tracking-widest text-sm mb-4">
-            Be Part of the Story
+            COSMOS
           </p>
 
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            Create the next moment with us.
+            More moments to come.
           </h2>
 
           <p className="text-gray-400 text-lg mb-8">
-            Join COSMOS and become part of the community.
+            Follow COSMOS as we continue building, learning and creating
+            together.
           </p>
 
           <a
@@ -122,7 +132,6 @@ function Gallery() {
 
         </div>
       </section>
-
 
       {/* Footer */}
       <footer className="border-t border-zinc-800 px-6 py-8 text-center text-gray-500">

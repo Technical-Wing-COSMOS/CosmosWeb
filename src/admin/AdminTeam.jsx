@@ -10,111 +10,103 @@ import {
 } from "firebase/firestore";
 import { db } from "../firebase/config";
 
-function AdminProjects() {
-  const [projects, setProjects] = useState([]);
+function AdminTeam() {
+  const [members, setMembers] = useState([]);
 
-  const [title, setTitle] = useState("");
-  const [category, setCategory] = useState("");
+  const [name, setName] = useState("");
+  const [role, setRole] = useState("");
+  const [department, setDepartment] = useState("");
   const [description, setDescription] = useState("");
-  const [status, setStatus] = useState("Ongoing");
   const [image, setImage] = useState("");
 
   const [editingId, setEditingId] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [loadingProjects, setLoadingProjects] = useState(true);
+  const [loadingMembers, setLoadingMembers] = useState(true);
 
-  // Load projects from Firestore
   useEffect(() => {
     const unsubscribe = onSnapshot(
-      collection(db, "projects"),
+      collection(db, "team"),
       (snapshot) => {
-        const projectData = snapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
+        const memberData = snapshot.docs.map((item) => ({
+          id: item.id,
+          ...item.data(),
         }));
 
-        setProjects(projectData);
-        setLoadingProjects(false);
+        setMembers(memberData);
+        setLoadingMembers(false);
       },
       (error) => {
-        console.error("Error loading projects:", error);
-        setLoadingProjects(false);
+        console.error("Error loading team:", error);
+        setLoadingMembers(false);
       }
     );
 
     return () => unsubscribe();
   }, []);
 
-  // Add or update project
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!title.trim() || !category.trim() || !description.trim()) {
-      alert("Please fill in the title, category and description.");
+    if (!name.trim() || !role.trim() || !department.trim()) {
+      alert("Please fill in name, role and department.");
       return;
     }
 
     try {
       setLoading(true);
 
-      const projectData = {
-        title: title.trim(),
-        category: category.trim(),
+      const memberData = {
+        name: name.trim(),
+        role: role.trim(),
+        department: department.trim(),
         description: description.trim(),
-        status,
         image: image.trim(),
       };
 
       if (editingId) {
-        // Update existing project
-        await updateDoc(doc(db, "projects", editingId), projectData);
-
-        alert("Project updated successfully!");
+        await updateDoc(doc(db, "team", editingId), memberData);
+        alert("Team member updated successfully!");
       } else {
-        // Add new project
-        await addDoc(collection(db, "projects"), {
-          ...projectData,
+        await addDoc(collection(db, "team"), {
+          ...memberData,
           createdAt: serverTimestamp(),
         });
 
-        alert("Project added successfully!");
+        alert("Team member added successfully!");
       }
 
       resetForm();
     } catch (error) {
-      console.error("Error saving project:", error);
-      alert("Failed to save project.");
+      console.error("Error saving team member:", error);
+      alert("Failed to save team member.");
     } finally {
       setLoading(false);
     }
   };
 
-  // Delete project
   const handleDelete = async (id) => {
     const confirmed = window.confirm(
-      "Are you sure you want to delete this project?"
+      "Are you sure you want to delete this team member?"
     );
 
     if (!confirmed) return;
 
     try {
-      await deleteDoc(doc(db, "projects", id));
-
-      alert("Project deleted successfully!");
+      await deleteDoc(doc(db, "team", id));
+      alert("Team member deleted successfully!");
     } catch (error) {
-      console.error("Error deleting project:", error);
-      alert("Failed to delete project.");
+      console.error("Error deleting team member:", error);
+      alert("Failed to delete team member.");
     }
   };
 
-  // Start editing
-  const handleEdit = (project) => {
-    setEditingId(project.id);
-    setTitle(project.title || "");
-    setCategory(project.category || "");
-    setDescription(project.description || "");
-    setStatus(project.status || "Ongoing");
-    setImage(project.image || "");
+  const handleEdit = (member) => {
+    setEditingId(member.id);
+    setName(member.name || "");
+    setRole(member.role || "");
+    setDepartment(member.department || "");
+    setDescription(member.description || "");
+    setImage(member.image || "");
 
     window.scrollTo({
       top: 0,
@@ -122,13 +114,12 @@ function AdminProjects() {
     });
   };
 
-  // Reset form
   const resetForm = () => {
     setEditingId(null);
-    setTitle("");
-    setCategory("");
+    setName("");
+    setRole("");
+    setDepartment("");
     setDescription("");
-    setStatus("Ongoing");
     setImage("");
   };
 
@@ -143,22 +134,20 @@ function AdminProjects() {
           </p>
 
           <h1 className="text-4xl font-bold">
-            Manage Projects
+            Manage Team
           </h1>
 
           <p className="text-gray-400 mt-3">
-            Add, edit and manage projects displayed on the COSMOS website.
+            Add, edit and manage COSMOS team members.
           </p>
         </div>
-
 
         {/* Form */}
         <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-8 mb-12">
 
           <div className="flex items-center justify-between mb-6">
-
             <h2 className="text-2xl font-semibold">
-              {editingId ? "Edit Project" : "Add New Project"}
+              {editingId ? "Edit Team Member" : "Add Team Member"}
             </h2>
 
             {editingId && (
@@ -170,43 +159,54 @@ function AdminProjects() {
                 Cancel Edit
               </button>
             )}
-
           </div>
-
 
           <form onSubmit={handleSubmit} className="space-y-6">
 
-            {/* Title */}
+            {/* Name */}
             <div>
               <label className="block text-gray-300 mb-2">
-                Project Title
+                Name
               </label>
 
               <input
                 type="text"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                placeholder="Enter project title"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Enter member name"
                 className="w-full px-4 py-3 rounded-lg bg-zinc-800 border border-zinc-700 text-white outline-none focus:border-orange-500"
               />
             </div>
 
-
-            {/* Category */}
+            {/* Role */}
             <div>
               <label className="block text-gray-300 mb-2">
-                Category
+                Role
               </label>
 
               <input
                 type="text"
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
+                value={role}
+                onChange={(e) => setRole(e.target.value)}
+                placeholder="e.g. Department Head"
+                className="w-full px-4 py-3 rounded-lg bg-zinc-800 border border-zinc-700 text-white outline-none focus:border-orange-500"
+              />
+            </div>
+
+            {/* Department */}
+            <div>
+              <label className="block text-gray-300 mb-2">
+                Department
+              </label>
+
+              <input
+                type="text"
+                value={department}
+                onChange={(e) => setDepartment(e.target.value)}
                 placeholder="e.g. Web Development"
                 className="w-full px-4 py-3 rounded-lg bg-zinc-800 border border-zinc-700 text-white outline-none focus:border-orange-500"
               />
             </div>
-
 
             {/* Description */}
             <div>
@@ -217,29 +217,11 @@ function AdminProjects() {
               <textarea
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                placeholder="Enter project description"
-                rows="5"
+                placeholder="Short description"
+                rows="4"
                 className="w-full px-4 py-3 rounded-lg bg-zinc-800 border border-zinc-700 text-white outline-none focus:border-orange-500"
               />
             </div>
-
-
-            {/* Status */}
-            <div>
-              <label className="block text-gray-300 mb-2">
-                Status
-              </label>
-
-              <select
-                value={status}
-                onChange={(e) => setStatus(e.target.value)}
-                className="w-full px-4 py-3 rounded-lg bg-zinc-800 border border-zinc-700 text-white outline-none focus:border-orange-500"
-              >
-                <option value="Ongoing">Ongoing</option>
-                <option value="Completed">Completed</option>
-              </select>
-            </div>
-
 
             {/* Image */}
             <div>
@@ -256,12 +238,10 @@ function AdminProjects() {
               />
 
               <p className="text-gray-500 text-sm mt-2">
-                Optional. You can leave this blank.
+                Optional. Leave blank if you don't have an image.
               </p>
             </div>
 
-
-            {/* Submit */}
             <button
               type="submit"
               disabled={loading}
@@ -270,89 +250,79 @@ function AdminProjects() {
               {loading
                 ? "Saving..."
                 : editingId
-                ? "Update Project"
-                : "Add Project"}
+                ? "Update Member"
+                : "Add Member"}
             </button>
 
           </form>
-
         </div>
 
-
-        {/* Existing Projects */}
+        {/* Existing Members */}
         <div>
 
           <div className="flex items-center justify-between mb-6">
-
             <h2 className="text-2xl font-semibold">
-              Existing Projects
+              Existing Team Members
             </h2>
 
             <span className="text-gray-500 text-sm">
-              {projects.length} project{projects.length !== 1 ? "s" : ""}
+              {members.length} member{members.length !== 1 ? "s" : ""}
             </span>
-
           </div>
 
-
-          {loadingProjects ? (
+          {loadingMembers ? (
             <p className="text-gray-500">
-              Loading projects...
+              Loading team members...
             </p>
-          ) : projects.length === 0 ? (
+          ) : members.length === 0 ? (
             <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-8 text-center">
               <p className="text-gray-500">
-                No projects have been added yet.
+                No team members have been added yet.
               </p>
             </div>
           ) : (
-
             <div className="space-y-4">
 
-              {projects.map((project) => (
+              {members.map((member) => (
                 <div
-                  key={project.id}
+                  key={member.id}
                   className="bg-zinc-900 border border-zinc-800 rounded-2xl p-6"
                 >
-
                   <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-5">
 
                     <div className="flex-1">
 
-                      <div className="flex items-center gap-3 mb-2">
+                      <h3 className="text-xl font-semibold">
+                        {member.name}
+                      </h3>
 
-                        <h3 className="text-xl font-semibold">
-                          {project.title}
-                        </h3>
-
-                        <span className="text-xs px-3 py-1 rounded-full border border-zinc-700 text-gray-400">
-                          {project.status || "Ongoing"}
-                        </span>
-
-                      </div>
-
-                      <p className="text-orange-500 text-sm mb-2">
-                        {project.category || "COSMOS Project"}
+                      <p className="text-orange-500 text-sm mt-1">
+                        {member.role}
                       </p>
 
-                      <p className="text-gray-500">
-                        {project.description}
+                      <p className="text-gray-500 text-sm mt-1">
+                        {member.department}
                       </p>
+
+                      {member.description && (
+                        <p className="text-gray-500 mt-3">
+                          {member.description}
+                        </p>
+                      )}
 
                     </div>
-
 
                     <div className="flex gap-3">
 
                       <button
-                        onClick={() => handleEdit(project)}
+                        onClick={() => handleEdit(member)}
                         className="px-4 py-2 rounded-lg border border-zinc-700 text-gray-300 hover:border-orange-500 hover:text-orange-500 transition"
                       >
                         Edit
                       </button>
 
                       <button
-                        onClick={() => handleDelete(project.id)}
+                        onClick={() => handleDelete(member.id)}
                         className="px-4 py-2 rounded-lg border border-red-900 text-red-400 hover:bg-red-950 transition"
                       >
                         Delete
@@ -361,12 +331,10 @@ function AdminProjects() {
                     </div>
 
                   </div>
-
                 </div>
               ))}
 
             </div>
-
           )}
 
         </div>
@@ -376,4 +344,4 @@ function AdminProjects() {
   );
 }
 
-export default AdminProjects;
+export default AdminTeam;

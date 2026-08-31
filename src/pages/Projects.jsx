@@ -1,30 +1,37 @@
-import React from "react";
-
-const projects = [
-  {
-    title: "COSMOS Web",
-    category: "Web Development",
-    description:
-      "The official digital platform of COSMOS, built to showcase our projects, team, events and activities.",
-    status: "Ongoing",
-  },
-  {
-    title: "Project Alpha",
-    category: "Technology",
-    description:
-      "An innovative project developed by COSMOS members to explore new ideas and solve real-world problems.",
-    status: "Completed",
-  },
-  {
-    title: "Project Nova",
-    category: "Research & Innovation",
-    description:
-      "A collaborative initiative focused on experimentation, learning and building something meaningful.",
-    status: "Ongoing",
-  },
-];
+import React, { useEffect, useState } from "react";
+import { collection, onSnapshot, query, orderBy } from "firebase/firestore";
+import { db } from "../firebase/config";
 
 function Projects() {
+  const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const projectsQuery = query(
+      collection(db, "projects"),
+      orderBy("createdAt", "desc")
+    );
+
+    const unsubscribe = onSnapshot(
+      projectsQuery,
+      (snapshot) => {
+        const projectData = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+
+        setProjects(projectData);
+        setLoading(false);
+      },
+      (error) => {
+        console.error("Error loading projects:", error);
+        setLoading(false);
+      }
+    );
+
+    return () => unsubscribe();
+  }, []);
+
   return (
     <div className="min-h-screen bg-black text-white">
 
@@ -53,52 +60,80 @@ function Projects() {
       <section className="px-6 pb-24">
         <div className="max-w-6xl mx-auto">
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {loading ? (
+            <p className="text-gray-500 text-center">
+              Loading projects...
+            </p>
+          ) : projects.length === 0 ? (
+            <p className="text-gray-500 text-center">
+              No projects have been added yet.
+            </p>
+          ) : (
 
-            {projects.map((project) => (
-              <div
-                key={project.title}
-                className="group rounded-2xl bg-zinc-900 border border-zinc-800 overflow-hidden hover:border-orange-500 transition duration-300"
-              >
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-                {/* Project Image Placeholder */}
-                <div className="h-52 bg-gradient-to-br from-zinc-800 to-zinc-950 flex items-center justify-center">
-                  <span className="text-5xl font-bold text-zinc-700 group-hover:text-orange-500 transition">
-                    {project.title.charAt(0)}
-                  </span>
-                </div>
+              {projects.map((project) => (
+                <div
+                  key={project.id}
+                  className="group rounded-2xl bg-zinc-900 border border-zinc-800 overflow-hidden hover:border-orange-500 transition duration-300"
+                >
 
-                {/* Project Content */}
-                <div className="p-7">
+                  {/* Project Image */}
+                  <div className="h-52 bg-gradient-to-br from-zinc-800 to-zinc-950 flex items-center justify-center overflow-hidden">
 
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="text-orange-500 text-sm font-medium">
-                      {project.category}
-                    </span>
+                    {project.image ? (
+                      <img
+                        src={project.image}
+                        alt={project.title}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <span className="text-5xl font-bold text-zinc-700 group-hover:text-orange-500 transition">
+                        {project.title?.charAt(0)}
+                      </span>
+                    )}
 
-                    <span className="text-xs px-3 py-1 rounded-full border border-zinc-700 text-gray-400">
-                      {project.status}
-                    </span>
                   </div>
 
-                  <h2 className="text-2xl font-semibold mb-4">
-                    {project.title}
-                  </h2>
 
-                  <p className="text-gray-400 leading-relaxed">
-                    {project.description}
-                  </p>
+                  {/* Project Content */}
+                  <div className="p-7">
 
-                  <button className="mt-6 text-orange-500 font-medium hover:text-orange-400 transition">
-                    View Project →
-                  </button>
+                    <div className="flex items-center justify-between mb-4">
+
+                      <span className="text-orange-500 text-sm font-medium">
+                        {project.category || "COSMOS Project"}
+                      </span>
+
+                      <span className="text-xs px-3 py-1 rounded-full border border-zinc-700 text-gray-400">
+                        {project.status || "Ongoing"}
+                      </span>
+
+                    </div>
+
+
+                    <h2 className="text-2xl font-semibold mb-4">
+                      {project.title}
+                    </h2>
+
+
+                    <p className="text-gray-400 leading-relaxed">
+                      {project.description}
+                    </p>
+
+
+                    <button className="mt-6 text-orange-500 font-medium hover:text-orange-400 transition">
+                      View Project →
+                    </button>
+
+                  </div>
 
                 </div>
+              ))}
 
-              </div>
-            ))}
+            </div>
 
-          </div>
+          )}
 
         </div>
       </section>

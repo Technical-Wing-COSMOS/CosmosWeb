@@ -1,3 +1,7 @@
+import AdminGallery from "./admin/AdminGallery";
+import AdminBlog from "./admin/AdminBlog";
+import AdminTeam from "./admin/AdminTeam";
+import AdminRoute from "./admin/AdminRoute";
 import AdminProjects from "./admin/AdminProjects";
 import AdminDashboard from "./admin/AdminDashboard";
 import AdminLogin from "./admin/AdminLogin";
@@ -20,8 +24,47 @@ function App() {
       <Navbar />
 
       <Routes>
-        <Route path="/admin" element={<AdminDashboard />} />
-        <Route path="/admin/projects" element={<AdminProjects />} />
+        <Route
+  path="/admin"
+  element={
+    <AdminRoute>
+      <AdminDashboard />
+    </AdminRoute>
+  }
+/>
+
+<Route
+  path="/admin/projects"
+  element={
+    <AdminRoute>
+      <AdminProjects />
+    </AdminRoute>
+  }
+/>
+<Route
+  path="/admin/team"
+  element={
+    <AdminRoute>
+      <AdminTeam />
+    </AdminRoute>
+  }
+/>
+<Route
+  path="/admin/blog"
+  element={
+    <AdminRoute>
+      <AdminBlog />
+    </AdminRoute>
+  }
+/>
+<Route
+  path="/admin/gallery"
+  element={
+    <AdminRoute>
+      <AdminGallery />
+    </AdminRoute>
+  }
+/>
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/" element={<Home />} />
         <Route path="/projects" element={<Projects />} />

@@ -69,21 +69,25 @@ function AdminDashboard() {
             </Link>
           
         
+<Link to="/admin/team">
+  <DashboardCard
+    title="Team"
+    description="Manage current team members and roles."
+  />
+</Link>
+          <Link to="/admin/blog">
+  <DashboardCard
+    title="Blog"
+    description="Create and manage blog posts."
+  />
+</Link>
 
-          <DashboardCard
-            title="Team"
-            description="Manage current team members and roles."
-          />
-
-          <DashboardCard
-            title="Blog"
-            description="Create and manage blog posts."
-          />
-
-          <DashboardCard
-            title="Gallery"
-            description="Upload and manage gallery images."
-          />
+          <Link to="/admin/gallery">
+  <DashboardCard
+    title="Gallery"
+    description="Upload and manage gallery images."
+  />
+</Link>
 
           <DashboardCard
             title="Alumni"

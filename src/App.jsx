@@ -1,3 +1,8 @@
+import AdminFAQ from "./admin/AdminFAQ";
+import Events from "./pages/Events";
+import AdminEvents from "./admin/AdminEvents";
+import AdminApplications from "./admin/AdminApplications";
+import AdminAlumni from "./admin/AdminAlumni";
 import AdminGallery from "./admin/AdminGallery";
 import AdminBlog from "./admin/AdminBlog";
 import AdminTeam from "./admin/AdminTeam";
@@ -65,6 +70,39 @@ function App() {
     </AdminRoute>
   }
 />
+<Route
+  path="/admin/alumni"
+  element={
+    <AdminRoute>
+      <AdminAlumni />
+    </AdminRoute>
+  }
+/>
+<Route
+  path="/admin/applications"
+  element={
+    <AdminRoute>
+      <AdminApplications />
+    </AdminRoute>
+  }
+/>
+<Route
+  path="/admin/events"
+  element={
+    <AdminRoute>
+      <AdminEvents />
+    </AdminRoute>
+  }
+/>
+<Route
+  path="/admin/faq"
+  element={
+    <AdminRoute>
+      <AdminFAQ />
+    </AdminRoute>
+  }
+/>
+        <Route path="/events" element={<Events />} />
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/" element={<Home />} />
         <Route path="/projects" element={<Projects />} />

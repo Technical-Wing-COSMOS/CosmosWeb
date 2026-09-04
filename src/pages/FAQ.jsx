@@ -1,47 +1,37 @@
-import React, { useState } from "react";
-
-const faqs = [
-  {
-    question: "What is COSMOS?",
-    answer:
-      "COSMOS is a student-driven community at NSUT focused on technology, creativity, innovation and collaboration.",
-  },
-  {
-    question: "Who can join COSMOS?",
-    answer:
-      "Students who are interested in learning, building, creating and contributing to the community can apply to join COSMOS.",
-  },
-  {
-    question: "Do I need prior experience to join?",
-    answer:
-      "No. Curiosity and willingness to learn matter more than prior experience. You can contribute while developing your skills.",
-  },
-  {
-    question: "What kind of projects does COSMOS work on?",
-    answer:
-      "Our projects can span technology, software, research, creative work and other areas where members want to experiment and build.",
-  },
-  {
-    question: "Does COSMOS organize events?",
-    answer:
-      "Yes. COSMOS can organize workshops, orientations, activities and other events for students and the wider community.",
-  },
-  {
-    question: "How can I become a member?",
-    answer:
-      "Visit the Join Us page and submit your application. Our team will get in touch with you regarding the next steps.",
-  },
-];
+import React, { useEffect, useState } from "react";
+import { collection, onSnapshot } from "firebase/firestore";
+import { db } from "../firebase/config";
 
 function FAQ() {
+  const [faqs, setFaqs] = useState([]);
   const [openIndex, setOpenIndex] = useState(null);
+
+  // Get FAQs from Firestore
+  useEffect(() => {
+    const unsubscribe = onSnapshot(
+      collection(db, "faq"),
+      (snapshot) => {
+        const faqData = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+
+        setFaqs(faqData);
+      },
+      (error) => {
+        console.error("Error fetching FAQs:", error);
+      }
+    );
+
+    return () => unsubscribe();
+  }, []);
 
   const toggleFAQ = (index) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-white text-black transition-colors duration-300 dark:bg-black dark:text-white">
 
       {/* Header */}
       <section className="px-6 pt-24 pb-16">
@@ -55,14 +45,13 @@ function FAQ() {
             FAQ
           </h1>
 
-          <p className="text-gray-400 text-lg md:text-xl leading-relaxed">
+          <p className="text-gray-600 dark:text-gray-400 text-lg md:text-xl leading-relaxed">
             Everything you need to know about COSMOS, our community
             and how you can get involved.
           </p>
 
         </div>
       </section>
-
 
       {/* FAQ List */}
       <section className="px-6 pb-24">
@@ -73,8 +62,8 @@ function FAQ() {
 
             return (
               <div
-                key={faq.question}
-                className="rounded-2xl bg-zinc-900 border border-zinc-800 overflow-hidden hover:border-zinc-700 transition"
+                key={faq.id}
+                className="rounded-2xl bg-gray-100 border border-gray-200 dark:bg-zinc-900 dark:border-zinc-800 overflow-hidden hover:border-orange-500 transition-colors duration-300"
               >
 
                 <button
@@ -96,7 +85,7 @@ function FAQ() {
 
                 {isOpen && (
                   <div className="px-6 pb-6">
-                    <p className="text-gray-400 leading-relaxed">
+                    <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
                       {faq.answer}
                     </p>
                   </div>
@@ -109,9 +98,8 @@ function FAQ() {
         </div>
       </section>
 
-
       {/* CTA */}
-      <section className="px-6 py-24 bg-zinc-950 border-t border-zinc-900">
+      <section className="px-6 py-24 bg-gray-100 border-t border-gray-200 dark:bg-zinc-950 dark:border-zinc-900 transition-colors duration-300">
         <div className="max-w-4xl mx-auto text-center">
 
           <p className="text-orange-500 uppercase tracking-widest text-sm mb-4">
@@ -122,7 +110,7 @@ function FAQ() {
             Come talk to us.
           </h2>
 
-          <p className="text-gray-400 text-lg mb-8">
+          <p className="text-gray-600 dark:text-gray-400 text-lg mb-8">
             The best way to understand COSMOS is to be part of it.
           </p>
 
@@ -136,9 +124,8 @@ function FAQ() {
         </div>
       </section>
 
-
       {/* Footer */}
-      <footer className="border-t border-zinc-800 px-6 py-8 text-center text-gray-500">
+      <footer className="border-t border-gray-200 dark:border-zinc-800 px-6 py-8 text-center text-gray-500">
         © {new Date().getFullYear()} COSMOS • NSUT
       </footer>
 

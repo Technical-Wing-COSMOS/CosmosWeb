@@ -100,7 +100,7 @@ function AdminBlog() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white px-6 py-12">
+    <div className="min-h-screen bg-white text-black dark:bg-black dark:text-white px-6 py-12 transition-colors duration-300">
       <div className="max-w-5xl mx-auto">
 
         {/* Header */}
@@ -113,13 +113,13 @@ function AdminBlog() {
             Manage Blog
           </h1>
 
-          <p className="text-gray-400 mt-3">
+          <p className="text-gray-600 dark:text-gray-400 mt-3">
             Create and manage blog posts for the COSMOS website.
           </p>
         </div>
 
         {/* Add Blog Post */}
-        <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-8">
+        <div className="bg-gray-100 border border-gray-200 dark:bg-zinc-900 dark:border-zinc-800 rounded-2xl p-8 transition-colors duration-300">
           <h2 className="text-2xl font-semibold mb-6">
             Add New Blog Post
           </h2>
@@ -128,7 +128,7 @@ function AdminBlog() {
 
             {/* Title */}
             <div>
-              <label className="block text-gray-300 mb-2">
+              <label className="block text-gray-700 dark:text-gray-300 mb-2">
                 Title
               </label>
 
@@ -137,13 +137,13 @@ function AdminBlog() {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="Enter blog title"
-                className="w-full px-4 py-3 rounded-lg bg-zinc-800 border border-zinc-700 text-white outline-none focus:border-orange-500"
+                className="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-black placeholder-gray-400 dark:bg-black dark:border-zinc-700 dark:text-white dark:placeholder-gray-600 outline-none focus:border-orange-500 transition"
               />
             </div>
 
             {/* Category */}
             <div>
-              <label className="block text-gray-300 mb-2">
+              <label className="block text-gray-700 dark:text-gray-300 mb-2">
                 Category
               </label>
 
@@ -152,13 +152,13 @@ function AdminBlog() {
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
                 placeholder="e.g. Community, Innovation, Events"
-                className="w-full px-4 py-3 rounded-lg bg-zinc-800 border border-zinc-700 text-white outline-none focus:border-orange-500"
+                className="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-black placeholder-gray-400 dark:bg-black dark:border-zinc-700 dark:text-white dark:placeholder-gray-600 outline-none focus:border-orange-500 transition"
               />
             </div>
 
             {/* Date */}
             <div>
-              <label className="block text-gray-300 mb-2">
+              <label className="block text-gray-700 dark:text-gray-300 mb-2">
                 Date
               </label>
 
@@ -167,13 +167,13 @@ function AdminBlog() {
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
                 placeholder="e.g. August 2026"
-                className="w-full px-4 py-3 rounded-lg bg-zinc-800 border border-zinc-700 text-white outline-none focus:border-orange-500"
+                className="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-black placeholder-gray-400 dark:bg-black dark:border-zinc-700 dark:text-white dark:placeholder-gray-600 outline-none focus:border-orange-500 transition"
               />
             </div>
 
             {/* Description */}
             <div>
-              <label className="block text-gray-300 mb-2">
+              <label className="block text-gray-700 dark:text-gray-300 mb-2">
                 Description
               </label>
 
@@ -182,13 +182,13 @@ function AdminBlog() {
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder="Enter blog description"
                 rows="5"
-                className="w-full px-4 py-3 rounded-lg bg-zinc-800 border border-zinc-700 text-white outline-none focus:border-orange-500"
+                className="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-black placeholder-gray-400 dark:bg-black dark:border-zinc-700 dark:text-white dark:placeholder-gray-600 outline-none focus:border-orange-500 transition"
               />
             </div>
 
             {/* Image */}
             <div>
-              <label className="block text-gray-300 mb-2">
+              <label className="block text-gray-700 dark:text-gray-300 mb-2">
                 Image URL
               </label>
 
@@ -197,7 +197,7 @@ function AdminBlog() {
                 value={image}
                 onChange={(e) => setImage(e.target.value)}
                 placeholder="https://..."
-                className="w-full px-4 py-3 rounded-lg bg-zinc-800 border border-zinc-700 text-white outline-none focus:border-orange-500"
+                className="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-black placeholder-gray-400 dark:bg-black dark:border-zinc-700 dark:text-white dark:placeholder-gray-600 outline-none focus:border-orange-500 transition"
               />
 
               <p className="text-gray-500 text-sm mt-2">
@@ -234,7 +234,7 @@ function AdminBlog() {
               posts.map((post) => (
                 <div
                   key={post.id}
-                  className="bg-zinc-900 border border-zinc-800 rounded-xl p-6 flex items-center justify-between gap-6"
+                  className="bg-gray-100 border border-gray-200 dark:bg-zinc-900 dark:border-zinc-800 rounded-xl p-6 flex items-center justify-between gap-6 transition-colors duration-300"
                 >
                   <div>
                     <p className="text-orange-500 text-sm">
@@ -252,7 +252,7 @@ function AdminBlog() {
 
                   <button
                     onClick={() => handleDelete(post.id)}
-                    className="px-4 py-2 rounded-lg border border-red-900 text-red-400 hover:bg-red-900/20 transition"
+                    className="px-4 py-2 rounded-lg border border-red-300 text-red-500 dark:border-red-900 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-950 transition"
                   >
                     Delete
                   </button>

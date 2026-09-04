@@ -66,12 +66,10 @@ function AdminProjects() {
       };
 
       if (editingId) {
-        // Update existing project
         await updateDoc(doc(db, "projects", editingId), projectData);
 
         alert("Project updated successfully!");
       } else {
-        // Add new project
         await addDoc(collection(db, "projects"), {
           ...projectData,
           createdAt: serverTimestamp(),
@@ -133,7 +131,7 @@ function AdminProjects() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white px-6 py-12">
+    <div className="min-h-screen bg-white text-black dark:bg-black dark:text-white px-6 py-12 transition-colors duration-300">
       <div className="max-w-6xl mx-auto">
 
         {/* Header */}
@@ -146,14 +144,13 @@ function AdminProjects() {
             Manage Projects
           </h1>
 
-          <p className="text-gray-400 mt-3">
+          <p className="text-gray-600 dark:text-gray-400 mt-3">
             Add, edit and manage projects displayed on the COSMOS website.
           </p>
         </div>
 
-
         {/* Form */}
-        <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-8 mb-12">
+        <div className="bg-gray-100 border border-gray-200 dark:bg-zinc-900 dark:border-zinc-800 rounded-2xl p-8 mb-12 transition-colors duration-300">
 
           <div className="flex items-center justify-between mb-6">
 
@@ -165,7 +162,7 @@ function AdminProjects() {
               <button
                 type="button"
                 onClick={resetForm}
-                className="text-sm text-gray-400 hover:text-orange-500 transition"
+                className="text-sm text-gray-500 dark:text-gray-400 hover:text-orange-500 transition"
               >
                 Cancel Edit
               </button>
@@ -173,12 +170,11 @@ function AdminProjects() {
 
           </div>
 
-
           <form onSubmit={handleSubmit} className="space-y-6">
 
             {/* Title */}
             <div>
-              <label className="block text-gray-300 mb-2">
+              <label className="block text-gray-700 dark:text-gray-300 mb-2">
                 Project Title
               </label>
 
@@ -187,14 +183,13 @@ function AdminProjects() {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="Enter project title"
-                className="w-full px-4 py-3 rounded-lg bg-zinc-800 border border-zinc-700 text-white outline-none focus:border-orange-500"
+                className="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-black placeholder-gray-400 dark:bg-black dark:border-zinc-700 dark:text-white dark:placeholder-gray-600 outline-none focus:border-orange-500 transition"
               />
             </div>
 
-
             {/* Category */}
             <div>
-              <label className="block text-gray-300 mb-2">
+              <label className="block text-gray-700 dark:text-gray-300 mb-2">
                 Category
               </label>
 
@@ -203,14 +198,13 @@ function AdminProjects() {
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
                 placeholder="e.g. Web Development"
-                className="w-full px-4 py-3 rounded-lg bg-zinc-800 border border-zinc-700 text-white outline-none focus:border-orange-500"
+                className="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-black placeholder-gray-400 dark:bg-black dark:border-zinc-700 dark:text-white dark:placeholder-gray-600 outline-none focus:border-orange-500 transition"
               />
             </div>
 
-
             {/* Description */}
             <div>
-              <label className="block text-gray-300 mb-2">
+              <label className="block text-gray-700 dark:text-gray-300 mb-2">
                 Description
               </label>
 
@@ -219,31 +213,29 @@ function AdminProjects() {
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder="Enter project description"
                 rows="5"
-                className="w-full px-4 py-3 rounded-lg bg-zinc-800 border border-zinc-700 text-white outline-none focus:border-orange-500"
+                className="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-black placeholder-gray-400 dark:bg-black dark:border-zinc-700 dark:text-white dark:placeholder-gray-600 outline-none focus:border-orange-500 transition"
               />
             </div>
 
-
             {/* Status */}
             <div>
-              <label className="block text-gray-300 mb-2">
+              <label className="block text-gray-700 dark:text-gray-300 mb-2">
                 Status
               </label>
 
               <select
                 value={status}
                 onChange={(e) => setStatus(e.target.value)}
-                className="w-full px-4 py-3 rounded-lg bg-zinc-800 border border-zinc-700 text-white outline-none focus:border-orange-500"
+                className="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-black dark:bg-black dark:border-zinc-700 dark:text-white outline-none focus:border-orange-500 transition"
               >
                 <option value="Ongoing">Ongoing</option>
                 <option value="Completed">Completed</option>
               </select>
             </div>
 
-
             {/* Image */}
             <div>
-              <label className="block text-gray-300 mb-2">
+              <label className="block text-gray-700 dark:text-gray-300 mb-2">
                 Image URL
               </label>
 
@@ -252,14 +244,13 @@ function AdminProjects() {
                 value={image}
                 onChange={(e) => setImage(e.target.value)}
                 placeholder="https://..."
-                className="w-full px-4 py-3 rounded-lg bg-zinc-800 border border-zinc-700 text-white outline-none focus:border-orange-500"
+                className="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-black placeholder-gray-400 dark:bg-black dark:border-zinc-700 dark:text-white dark:placeholder-gray-600 outline-none focus:border-orange-500 transition"
               />
 
               <p className="text-gray-500 text-sm mt-2">
                 Optional. You can leave this blank.
               </p>
             </div>
-
 
             {/* Submit */}
             <button
@@ -275,9 +266,7 @@ function AdminProjects() {
             </button>
 
           </form>
-
         </div>
-
 
         {/* Existing Projects */}
         <div>
@@ -294,13 +283,12 @@ function AdminProjects() {
 
           </div>
 
-
           {loadingProjects ? (
             <p className="text-gray-500">
               Loading projects...
             </p>
           ) : projects.length === 0 ? (
-            <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-8 text-center">
+            <div className="bg-gray-100 border border-gray-200 dark:bg-zinc-900 dark:border-zinc-800 rounded-2xl p-8 text-center transition-colors duration-300">
               <p className="text-gray-500">
                 No projects have been added yet.
               </p>
@@ -312,7 +300,7 @@ function AdminProjects() {
               {projects.map((project) => (
                 <div
                   key={project.id}
-                  className="bg-zinc-900 border border-zinc-800 rounded-2xl p-6"
+                  className="bg-gray-100 border border-gray-200 dark:bg-zinc-900 dark:border-zinc-800 rounded-2xl p-6 transition-colors duration-300"
                 >
 
                   <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-5">
@@ -325,7 +313,7 @@ function AdminProjects() {
                           {project.title}
                         </h3>
 
-                        <span className="text-xs px-3 py-1 rounded-full border border-zinc-700 text-gray-400">
+                        <span className="text-xs px-3 py-1 rounded-full border border-gray-300 text-gray-600 dark:border-zinc-700 dark:text-gray-400">
                           {project.status || "Ongoing"}
                         </span>
 
@@ -335,25 +323,24 @@ function AdminProjects() {
                         {project.category || "COSMOS Project"}
                       </p>
 
-                      <p className="text-gray-500">
+                      <p className="text-gray-600 dark:text-gray-500">
                         {project.description}
                       </p>
 
                     </div>
 
-
                     <div className="flex gap-3">
 
                       <button
                         onClick={() => handleEdit(project)}
-                        className="px-4 py-2 rounded-lg border border-zinc-700 text-gray-300 hover:border-orange-500 hover:text-orange-500 transition"
+                        className="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 dark:border-zinc-700 dark:text-gray-300 hover:border-orange-500 hover:text-orange-500 transition"
                       >
                         Edit
                       </button>
 
                       <button
                         onClick={() => handleDelete(project.id)}
-                        className="px-4 py-2 rounded-lg border border-red-900 text-red-400 hover:bg-red-950 transition"
+                        className="px-4 py-2 rounded-lg border border-red-300 text-red-500 dark:border-red-900 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-950 transition"
                       >
                         Delete
                       </button>

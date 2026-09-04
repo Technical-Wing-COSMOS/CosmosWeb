@@ -26,7 +26,7 @@ function AdminLogin() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white flex items-center justify-center px-6">
+    <div className="min-h-screen bg-white text-black dark:bg-black dark:text-white flex items-center justify-center px-6 transition-colors duration-300">
 
       <div className="w-full max-w-md">
 
@@ -41,17 +41,16 @@ function AdminLogin() {
             Admin Login
           </h1>
 
-          <p className="text-gray-500">
+          <p className="text-gray-600 dark:text-gray-500">
             Sign in to manage the COSMOS website.
           </p>
 
         </div>
 
-
         {/* Login Card */}
         <form
           onSubmit={handleLogin}
-          className="bg-zinc-900 border border-zinc-800 rounded-2xl p-8"
+          className="bg-gray-100 border border-gray-200 dark:bg-zinc-900 dark:border-zinc-800 rounded-2xl p-8 transition-colors duration-300"
         >
 
           {/* Email */}
@@ -67,11 +66,10 @@ function AdminLogin() {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Admin email"
               required
-              className="w-full px-4 py-3 rounded-xl bg-black border border-zinc-700 text-white placeholder-gray-600 focus:outline-none focus:border-orange-500 transition"
+              className="w-full px-4 py-3 rounded-xl bg-white border border-gray-300 text-black placeholder-gray-400 dark:bg-black dark:border-zinc-700 dark:text-white dark:placeholder-gray-600 focus:outline-none focus:border-orange-500 transition"
             />
 
           </div>
-
 
           {/* Password */}
           <div className="mb-6">
@@ -86,19 +84,17 @@ function AdminLogin() {
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Password"
               required
-              className="w-full px-4 py-3 rounded-xl bg-black border border-zinc-700 text-white placeholder-gray-600 focus:outline-none focus:border-orange-500 transition"
+              className="w-full px-4 py-3 rounded-xl bg-white border border-gray-300 text-black placeholder-gray-400 dark:bg-black dark:border-zinc-700 dark:text-white dark:placeholder-gray-600 focus:outline-none focus:border-orange-500 transition"
             />
 
           </div>
 
-
           {/* Error */}
           {error && (
-            <div className="mb-6 p-3 rounded-xl bg-red-950 border border-red-900 text-red-400 text-sm">
+            <div className="mb-6 p-3 rounded-xl bg-red-100 border border-red-200 text-red-600 dark:bg-red-950 dark:border-red-900 dark:text-red-400 text-sm">
               {error}
             </div>
           )}
-
 
           {/* Button */}
           <button
@@ -110,7 +106,6 @@ function AdminLogin() {
           </button>
 
         </form>
-
 
         {/* Back */}
         <div className="text-center mt-6">

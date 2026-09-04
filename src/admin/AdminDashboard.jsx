@@ -10,10 +10,10 @@ function AdminDashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-white text-black transition-colors duration-300 dark:bg-black dark:text-white">
 
       {/* Header */}
-      <header className="border-b border-zinc-800">
+      <header className="border-b border-gray-200 dark:border-zinc-800">
         <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
 
           <div>
@@ -28,7 +28,7 @@ function AdminDashboard() {
 
           <button
             onClick={handleLogout}
-            className="px-5 py-2 rounded-xl border border-zinc-700 text-gray-300 hover:border-orange-500 hover:text-orange-500 transition"
+            className="px-5 py-2 rounded-xl border border-gray-300 text-gray-700 hover:border-orange-500 hover:text-orange-500 dark:border-zinc-700 dark:text-gray-300 transition"
           >
             Logout
           </button>
@@ -50,7 +50,7 @@ function AdminDashboard() {
             Manage COSMOS
           </h2>
 
-          <p className="text-gray-400 mt-3 max-w-2xl">
+          <p className="text-gray-600 dark:text-gray-400 mt-3 max-w-2xl">
             Manage website content, projects, team members, events,
             applications and more from one place.
           </p>
@@ -62,57 +62,60 @@ function AdminDashboard() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
           <Link to="/admin/projects">
-  <DashboardCard
-    title="Projects"
-    description="Manage COSMOS projects."
-  />
-            </Link>
-          
-        
-<Link to="/admin/team">
-  <DashboardCard
-    title="Team"
-    description="Manage current team members and roles."
-  />
-</Link>
+            <DashboardCard
+              title="Projects"
+              description="Manage COSMOS projects."
+            />
+          </Link>
+
+          <Link to="/admin/team">
+            <DashboardCard
+              title="Team"
+              description="Manage current team members and roles."
+            />
+          </Link>
+
           <Link to="/admin/blog">
-  <DashboardCard
-    title="Blog"
-    description="Create and manage blog posts."
-  />
-</Link>
+            <DashboardCard
+              title="Blog"
+              description="Create and manage blog posts."
+            />
+          </Link>
 
           <Link to="/admin/gallery">
-  <DashboardCard
-    title="Gallery"
-    description="Upload and manage gallery images."
-  />
-</Link>
+            <DashboardCard
+              title="Gallery"
+              description="Upload and manage gallery images."
+            />
+          </Link>
 
-          <DashboardCard
-            title="Alumni"
-            description="Manage alumni profiles and information."
-          />
+          <Link to="/admin/alumni">
+            <DashboardCard
+              title="Alumni"
+              description="Manage alumni profiles and information."
+            />
+          </Link>
 
-          <DashboardCard
-            title="Applications"
-            description="View applications submitted through Join Us."
-          />
+          <Link to="/admin/applications">
+            <DashboardCard
+              title="Applications"
+              description="View applications submitted through Join Us."
+            />
+          </Link>
 
-          <DashboardCard
-            title="Messages"
-            description="View messages submitted through Contact Us."
-          />
+          <Link to="/admin/faq">
+            <DashboardCard
+              title="FAQ"
+              description="Manage frequently asked questions."
+            />
+          </Link>
 
-          <DashboardCard
-            title="FAQ"
-            description="Manage frequently asked questions."
-          />
-
-          <DashboardCard
-            title="Events"
-            description="Create and manage upcoming events."
-          />
+          <Link to="/admin/events">
+            <DashboardCard
+              title="Events"
+              description="Create and manage upcoming COSMOS events."
+            />
+          </Link>
 
         </div>
 
@@ -125,9 +128,9 @@ function AdminDashboard() {
 
 function DashboardCard({ title, description }) {
   return (
-    <div className="group p-7 rounded-2xl bg-zinc-900 border border-zinc-800 hover:border-orange-500 transition cursor-pointer">
+    <div className="group p-7 rounded-2xl bg-gray-100 border border-gray-200 hover:border-orange-500 dark:bg-zinc-900 dark:border-zinc-800 transition duration-300 cursor-pointer">
 
-      <div className="w-10 h-10 rounded-xl bg-zinc-800 flex items-center justify-center mb-5 group-hover:bg-orange-500 transition">
+      <div className="w-10 h-10 rounded-xl bg-gray-200 dark:bg-zinc-800 flex items-center justify-center mb-5 group-hover:bg-orange-500 transition">
 
         <span className="text-orange-500 group-hover:text-black font-bold">
           +
@@ -139,7 +142,7 @@ function DashboardCard({ title, description }) {
         {title}
       </h3>
 
-      <p className="text-gray-500 leading-relaxed">
+      <p className="text-gray-600 dark:text-gray-500 leading-relaxed">
         {description}
       </p>
 

@@ -33,7 +33,7 @@ function Projects() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-white text-black transition-colors duration-300 dark:bg-black dark:text-white">
 
       {/* Header */}
       <section className="px-6 pt-24 pb-16">
@@ -47,7 +47,7 @@ function Projects() {
             Projects
           </h1>
 
-          <p className="text-gray-400 text-lg md:text-xl max-w-2xl leading-relaxed">
+          <p className="text-gray-600 dark:text-gray-400 text-lg md:text-xl max-w-2xl leading-relaxed">
             Ideas become reality when people come together to build.
             Explore the projects created by the COSMOS community.
           </p>
@@ -75,11 +75,11 @@ function Projects() {
               {projects.map((project) => (
                 <div
                   key={project.id}
-                  className="group rounded-2xl bg-zinc-900 border border-zinc-800 overflow-hidden hover:border-orange-500 transition duration-300"
+                  className="group rounded-2xl bg-gray-100 border border-gray-200 overflow-hidden hover:border-orange-500 transition duration-300 dark:bg-zinc-900 dark:border-zinc-800"
                 >
 
                   {/* Project Image */}
-                  <div className="h-52 bg-gradient-to-br from-zinc-800 to-zinc-950 flex items-center justify-center overflow-hidden">
+                  <div className="h-52 bg-gradient-to-br from-gray-200 to-gray-100 dark:from-zinc-800 dark:to-zinc-950 flex items-center justify-center overflow-hidden">
 
                     {project.image ? (
                       <img
@@ -88,7 +88,7 @@ function Projects() {
                         className="w-full h-full object-cover"
                       />
                     ) : (
-                      <span className="text-5xl font-bold text-zinc-700 group-hover:text-orange-500 transition">
+                      <span className="text-5xl font-bold text-gray-400 dark:text-zinc-700 group-hover:text-orange-500 transition">
                         {project.title?.charAt(0)}
                       </span>
                     )}
@@ -105,7 +105,7 @@ function Projects() {
                         {project.category || "COSMOS Project"}
                       </span>
 
-                      <span className="text-xs px-3 py-1 rounded-full border border-zinc-700 text-gray-400">
+                      <span className="text-xs px-3 py-1 rounded-full border border-gray-300 text-gray-500 dark:border-zinc-700 dark:text-gray-400">
                         {project.status || "Ongoing"}
                       </span>
 
@@ -117,7 +117,7 @@ function Projects() {
                     </h2>
 
 
-                    <p className="text-gray-400 leading-relaxed">
+                    <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
                       {project.description}
                     </p>
 
@@ -140,7 +140,7 @@ function Projects() {
 
 
       {/* Bottom CTA */}
-      <section className="px-6 py-24 bg-zinc-950 border-t border-zinc-900">
+      <section className="px-6 py-24 bg-gray-100 border-t border-gray-200 dark:bg-zinc-950 dark:border-zinc-900 transition-colors duration-300">
         <div className="max-w-4xl mx-auto text-center">
 
           <p className="text-orange-500 uppercase tracking-widest text-sm mb-4">
@@ -151,7 +151,7 @@ function Projects() {
             Let's build something together.
           </h2>
 
-          <p className="text-gray-400 text-lg mb-8">
+          <p className="text-gray-600 dark:text-gray-400 text-lg mb-8">
             Join COSMOS and turn your ideas into real projects.
           </p>
 
@@ -167,7 +167,7 @@ function Projects() {
 
 
       {/* Footer */}
-      <footer className="border-t border-zinc-800 px-6 py-8 text-center text-gray-500">
+      <footer className="border-t border-gray-200 dark:border-zinc-800 px-6 py-8 text-center text-gray-500">
         © {new Date().getFullYear()} COSMOS • NSUT
       </footer>
 

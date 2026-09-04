@@ -28,7 +28,7 @@ function Gallery() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-white text-black transition-colors duration-300 dark:bg-black dark:text-white">
 
       {/* Header */}
       <section className="px-6 pt-24 pb-16">
@@ -42,13 +42,14 @@ function Gallery() {
             Gallery
           </h1>
 
-          <p className="text-gray-400 text-lg md:text-xl max-w-2xl leading-relaxed">
+          <p className="text-gray-600 dark:text-gray-400 text-lg md:text-xl max-w-2xl leading-relaxed">
             A collection of moments, events and experiences from the
             COSMOS community.
           </p>
 
         </div>
       </section>
+
 
       {/* Gallery */}
       <section className="px-6 pb-24">
@@ -72,10 +73,10 @@ function Gallery() {
               {images.map((item) => (
                 <div
                   key={item.id}
-                  className="group rounded-2xl bg-zinc-900 border border-zinc-800 overflow-hidden hover:border-orange-500 transition duration-300"
+                  className="group rounded-2xl bg-gray-100 border border-gray-200 overflow-hidden hover:border-orange-500 transition duration-300 dark:bg-zinc-900 dark:border-zinc-800"
                 >
 
-                  <div className="h-72 bg-zinc-800 overflow-hidden">
+                  <div className="h-72 bg-gray-200 dark:bg-zinc-800 overflow-hidden">
 
                     <img
                       src={item.image}
@@ -106,8 +107,9 @@ function Gallery() {
         </div>
       </section>
 
+
       {/* CTA */}
-      <section className="px-6 py-24 bg-zinc-950 border-t border-zinc-900">
+      <section className="px-6 py-24 bg-gray-100 border-t border-gray-200 dark:bg-zinc-950 dark:border-zinc-900 transition-colors duration-300">
         <div className="max-w-4xl mx-auto text-center">
 
           <p className="text-orange-500 uppercase tracking-widest text-sm mb-4">
@@ -118,7 +120,7 @@ function Gallery() {
             More moments to come.
           </h2>
 
-          <p className="text-gray-400 text-lg mb-8">
+          <p className="text-gray-600 dark:text-gray-400 text-lg mb-8">
             Follow COSMOS as we continue building, learning and creating
             together.
           </p>
@@ -133,8 +135,9 @@ function Gallery() {
         </div>
       </section>
 
+
       {/* Footer */}
-      <footer className="border-t border-zinc-800 px-6 py-8 text-center text-gray-500">
+      <footer className="border-t border-gray-200 dark:border-zinc-800 px-6 py-8 text-center text-gray-500">
         © {new Date().getFullYear()} COSMOS • NSUT
       </footer>
 

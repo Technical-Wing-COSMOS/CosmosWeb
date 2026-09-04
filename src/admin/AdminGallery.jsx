@@ -86,7 +86,7 @@ function AdminGallery() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white px-6 py-12">
+    <div className="min-h-screen bg-white text-black dark:bg-black dark:text-white px-6 py-12 transition-colors duration-300">
       <div className="max-w-6xl mx-auto">
 
         {/* Header */}
@@ -99,13 +99,13 @@ function AdminGallery() {
             Manage Gallery
           </h1>
 
-          <p className="text-gray-400 mt-3">
+          <p className="text-gray-600 dark:text-gray-400 mt-3">
             Add and manage images displayed in the COSMOS gallery.
           </p>
         </div>
 
         {/* Add Image */}
-        <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-8 mb-12">
+        <div className="bg-gray-100 border border-gray-200 dark:bg-zinc-900 dark:border-zinc-800 rounded-2xl p-8 mb-12 transition-colors duration-300">
 
           <h2 className="text-2xl font-semibold mb-6">
             Add Gallery Image
@@ -115,7 +115,7 @@ function AdminGallery() {
 
             {/* Title */}
             <div>
-              <label className="block text-gray-300 mb-2">
+              <label className="block text-gray-700 dark:text-gray-300 mb-2">
                 Title
               </label>
 
@@ -124,13 +124,13 @@ function AdminGallery() {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="e.g. COSMOS Orientation 2026"
-                className="w-full px-4 py-3 rounded-lg bg-zinc-800 border border-zinc-700 text-white outline-none focus:border-orange-500"
+                className="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-black placeholder-gray-400 dark:bg-black dark:border-zinc-700 dark:text-white dark:placeholder-gray-600 outline-none focus:border-orange-500 transition"
               />
             </div>
 
             {/* Category */}
             <div>
-              <label className="block text-gray-300 mb-2">
+              <label className="block text-gray-700 dark:text-gray-300 mb-2">
                 Category
               </label>
 
@@ -139,13 +139,13 @@ function AdminGallery() {
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
                 placeholder="e.g. Events"
-                className="w-full px-4 py-3 rounded-lg bg-zinc-800 border border-zinc-700 text-white outline-none focus:border-orange-500"
+                className="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-black placeholder-gray-400 dark:bg-black dark:border-zinc-700 dark:text-white dark:placeholder-gray-600 outline-none focus:border-orange-500 transition"
               />
             </div>
 
             {/* Image URL */}
             <div>
-              <label className="block text-gray-300 mb-2">
+              <label className="block text-gray-700 dark:text-gray-300 mb-2">
                 Image URL
               </label>
 
@@ -154,7 +154,7 @@ function AdminGallery() {
                 value={image}
                 onChange={(e) => setImage(e.target.value)}
                 placeholder="https://..."
-                className="w-full px-4 py-3 rounded-lg bg-zinc-800 border border-zinc-700 text-white outline-none focus:border-orange-500"
+                className="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-black placeholder-gray-400 dark:bg-black dark:border-zinc-700 dark:text-white dark:placeholder-gray-600 outline-none focus:border-orange-500 transition"
               />
 
               <p className="text-gray-500 text-sm mt-2">
@@ -190,7 +190,7 @@ function AdminGallery() {
           </div>
 
           {images.length === 0 ? (
-            <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-8 text-center">
+            <div className="bg-gray-100 border border-gray-200 dark:bg-zinc-900 dark:border-zinc-800 rounded-2xl p-8 text-center transition-colors duration-300">
               <p className="text-gray-500">
                 No gallery images have been added yet.
               </p>
@@ -201,10 +201,10 @@ function AdminGallery() {
               {images.map((item) => (
                 <div
                   key={item.id}
-                  className="bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden"
+                  className="bg-gray-100 border border-gray-200 dark:bg-zinc-900 dark:border-zinc-800 rounded-2xl overflow-hidden transition-colors duration-300"
                 >
 
-                  <div className="h-56 bg-zinc-800">
+                  <div className="h-56 bg-gray-200 dark:bg-zinc-800">
 
                     <img
                       src={item.image}
@@ -229,7 +229,7 @@ function AdminGallery() {
 
                     <button
                       onClick={() => handleDelete(item.id)}
-                      className="px-4 py-2 rounded-lg border border-red-900 text-red-400 hover:bg-red-900/20 transition"
+                      className="px-4 py-2 rounded-lg border border-red-300 text-red-500 dark:border-red-900 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-950 transition"
                     >
                       Delete
                     </button>

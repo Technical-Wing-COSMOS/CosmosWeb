@@ -28,7 +28,7 @@ function Blog() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-white text-black transition-colors duration-300 dark:bg-black dark:text-white">
 
       {/* Header */}
       <section className="px-6 pt-24 pb-16">
@@ -42,7 +42,7 @@ function Blog() {
             Blog
           </h1>
 
-          <p className="text-gray-400 text-lg md:text-xl max-w-2xl leading-relaxed">
+          <p className="text-gray-600 dark:text-gray-400 text-lg md:text-xl max-w-2xl leading-relaxed">
             Stories, updates, ideas and insights from the COSMOS community.
           </p>
 
@@ -71,11 +71,11 @@ function Blog() {
               {posts.map((post) => (
                 <article
                   key={post.id}
-                  className="group rounded-2xl bg-zinc-900 border border-zinc-800 overflow-hidden hover:border-orange-500 transition duration-300"
+                  className="group rounded-2xl bg-gray-100 border border-gray-200 overflow-hidden hover:border-orange-500 transition duration-300 dark:bg-zinc-900 dark:border-zinc-800"
                 >
 
                   {/* Image */}
-                  <div className="h-56 bg-gradient-to-br from-zinc-800 to-zinc-950 flex items-center justify-center overflow-hidden">
+                  <div className="h-56 bg-gradient-to-br from-gray-200 to-gray-100 dark:from-zinc-800 dark:to-zinc-950 flex items-center justify-center overflow-hidden">
 
                     {post.image ? (
                       <img
@@ -84,7 +84,7 @@ function Blog() {
                         className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
                       />
                     ) : (
-                      <span className="text-4xl font-bold text-zinc-700 group-hover:text-orange-500 transition">
+                      <span className="text-4xl font-bold text-gray-400 dark:text-zinc-700 group-hover:text-orange-500 transition">
                         COSMOS
                       </span>
                     )}
@@ -110,7 +110,7 @@ function Blog() {
                       {post.title}
                     </h2>
 
-                    <p className="text-gray-400 leading-relaxed">
+                    <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
                       {post.description}
                     </p>
 
@@ -130,7 +130,7 @@ function Blog() {
       </section>
 
       {/* CTA */}
-      <section className="px-6 py-24 bg-zinc-950 border-t border-zinc-900">
+      <section className="px-6 py-24 bg-gray-100 border-t border-gray-200 dark:bg-zinc-950 dark:border-zinc-900 transition-colors duration-300">
         <div className="max-w-4xl mx-auto text-center">
 
           <p className="text-orange-500 uppercase tracking-widest text-sm mb-4">
@@ -141,7 +141,7 @@ function Blog() {
             Don't miss what's next.
           </h2>
 
-          <p className="text-gray-400 text-lg mb-8">
+          <p className="text-gray-600 dark:text-gray-400 text-lg mb-8">
             Follow COSMOS for the latest projects, events and updates.
           </p>
 
@@ -156,7 +156,7 @@ function Blog() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-zinc-800 px-6 py-8 text-center text-gray-500">
+      <footer className="border-t border-gray-200 dark:border-zinc-800 px-6 py-8 text-center text-gray-500">
         © {new Date().getFullYear()} COSMOS • NSUT
       </footer>
 
